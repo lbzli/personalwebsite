@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+ul {
+    list-style: none;
+}
+body,html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    background-color: #000000;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 800'%3E%3Cg fill-opacity='0.41'%3E%3Ccircle fill='%23000000' cx='400' cy='400' r='600'/%3E%3Ccircle fill='%23180d1c' cx='400' cy='400' r='500'/%3E%3Ccircle fill='%23261431' cx='400' cy='400' r='400'/%3E%3Ccircle fill='%23351947' cx='400' cy='400' r='300'/%3E%3Ccircle fill='%23451e5e' cx='400' cy='400' r='200'/%3E%3Ccircle fill='%23552277' cx='400' cy='400' r='100'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+}
+.main {
+    width: 1000px;
+    height: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding-right: 250px;
+    .content {
+        width: 100%;
+        height: 100%;
+        a {
+            color: #000000;
+            font-size: 20px;
+        }
+        >ul>li {
+            width: 100%;
+            min-height: 100px;
+            box-sizing: border-box;
+            padding: 10px;
+            background-color: white;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            padding-right: 21%;
+            position: relative;
+        }
+        p {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #6B6B6B;
+        }
+        .footer {
+            width: 100%;
+            height: 30px;
+            ul {
+                display: flex;
+                justify-content: space-around;
+                li {
+                    font-size: 12px;
+                    color: #7BA1B4;
+                }
+            }
+        }
+        .image {
+            width: 20%;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            img {
+                width: 96%;
+                border-radius: 2%;
+                margin-top: 20px;
+                border: 1px solid #cccccc;
+            }
+        }
+    }
+}
