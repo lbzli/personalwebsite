@@ -6,11 +6,15 @@
       <form action method="post">
         <label for="email">Email</label>
         <br />
-        <input type="text"  v-model="email"/>
+        <input type="text" v-model="email" />
         <br />
         <label for="password">Password</label>
         <br />
-        <input type="password"  v-model="password"/>
+        <input type="password" v-model="password1" />
+        <br />
+        <label for="password">Password</label>
+        <br />
+        <input type="password" v-model="password2" />
         <br />
         <button type="submit" @click.prevent="login">Sing in</button>
       </form>
@@ -20,24 +24,21 @@
 </template>
 
 <script>
-
-// eslint-disable-next-line no-unused-vars
-import {getPostById,toLogin} from '../service/getData'
 export default {
   data() {
     return {
-      email:'',
-      password:''
-    }
+      email: "",
+      password1: "",
+      password2:""
+    };
   },
   methods: {
     login() {
-      console.log(this.email,this.password)
-      console.log(toLogin(this.email,this.password))
-      console.log(getPostById('5eb82f6f720a63305c760a3d'))
+      console.log(this.email, this.password1,this.password2
+      );
     }
-  },
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -45,7 +46,7 @@ export default {
   min-height: 650px;
   .login_main {
     width: 350px;
-    height: 450px;
+    height: 525px;
     text-align: center;
     background-color: white;
     margin: 0 auto;
@@ -70,15 +71,13 @@ export default {
       width: 90%;
       height: 45px;
       background-color: #f4fafb;
-      text-indent: 2em;
     }
     button {
       width: 90%;
       height: 45px;
       background-color: #44a0b3;
       margin-top: 40px;
-      color: white
-      ;
+      color: white;
     }
   }
 }

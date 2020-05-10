@@ -129,6 +129,12 @@ export default {
         }
       }
     }
+    .date {
+      display: none;
+    }
+    .todo {
+      display: none;
+    }
   }
 }
 </style>
