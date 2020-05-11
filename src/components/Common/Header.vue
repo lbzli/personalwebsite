@@ -4,14 +4,18 @@
       <router-link to="/home" tag="li">首页</router-link>
       <router-link to="/about" tag="li">关于我</router-link>
       <router-link to="/article" tag="li">文章</router-link>
-      <router-link to="/login" tag="li">登录</router-link>
-      <router-link to="/register" tag="li">注册</router-link>
+      <User></User>
     </ul>
   </nav>
 </template>
 
 <script>
-export default {};
+import User from './User'
+export default {
+  components: {
+    User
+  }
+};
 </script>
 
 <style lang="scss" scoped>

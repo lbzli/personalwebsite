@@ -27,14 +27,31 @@ export default {
   data() {
     return {
       email:'',
-      password:''
+      password:'',
+      flag:false
     }
   },
   methods: {
     login() {
       console.log(this.email,this.password)
-      console.log(toLogin(this.email,this.password))
-      console.log(getPostById('5eb82f6f720a63305c760a3d'))
+      let result = toLogin(this.email,this.password)
+      // result.then(function(value){
+      //   console.log(value)
+      //   console.log("this是："+this)
+      //       //无法使用this.$store
+      // })
+      result.then((value) => {
+        console.log(value)
+        this.$store.commit('upStatus',{status:value.status,message:value.message,flag:!this.flag})
+        this.flag = !this.flag
+        if(value.message === '登录成功') {
+          this.$store.commit('logined',{login:true})
+        }else {
+          this.$store.commit('logined',{login:true})
+        }
+      })
+      
+      // console.log(getPostById('5eb82f6f720a63305c760a3d'))
     }
   },
 }

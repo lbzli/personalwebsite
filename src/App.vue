@@ -8,6 +8,11 @@
     <home2></home2>-->
     <Header></Header>
     <router-view></router-view>
+    <div :class="{messageBox:true}">
+      {{this.$store.state.message}}
+      {{this.$store.state.status}}
+      {{boxHidden}}
+    </div>
   </div>
 </template>
 
@@ -15,15 +20,31 @@
 // import login from './components/login'
 // import home from './components/home'
 // import home2 from './components/home2'
+
 import Header from "./components/Common/Header";
 export default {
   name: "App",
+  computed: {
+    boxHidden: function () {
+      return this.$store.state.flag
+    }
+  },
   components: {
     // login
     // home,
     // home2
     Header
-  }
+  },
+  watch: {
+    boxHidden:function(newVal) {
+      let alterBox = document.querySelector('.messageBox')
+      alterBox.style.opacity = 1
+      setTimeout(() => {
+        alterBox.style.opacity = 0
+      }, 1000);
+      console.log(newVal)
+    }
+  },
 };
 </script>
 <style lang="scss">
@@ -37,5 +58,21 @@ body {
 }
 #app {
   height: 100%;
+  
+  .messageBox {
+    max-width: 200px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 5px;
+    background-color: pink;
+    position:fixed;
+    top: 75px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
 }
 </style>

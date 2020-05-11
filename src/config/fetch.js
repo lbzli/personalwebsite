@@ -18,14 +18,14 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
 
     if (window.fetch && method == 'fetch') {
         let requestConfig = {
-            //credentials: 'include',
+            credentials: 'include',
             method: type,
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Accept': 'application/json', //Accept 请求头用来告知（服务器）客户端可以处理的内容类型，
+                'Content-Type': 'application/json'//在响应中，Content-Type标头告诉客户端实际返回的内容的内容类型。
             },
-            //mode: "cors",
-            cache: 'force-cache'
+            mode: "cors",
+            // cache: 'force-cache'cache //作为Request 接口只读属性包含着请求的缓存模式。它控制着请求以何种方式与浏览器的  HTTP 缓存进行交互。
         }
 
         if (type == 'POST') {
