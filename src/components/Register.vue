@@ -16,7 +16,7 @@
         <br />
         <input type="password" v-model="password2" />
         <br />
-        <button type="submit" @click.prevent="login">Sing in</button>
+        <button type="submit" @click.prevent="register">Sing in</button>
       </form>
       <p>Don't hava an account? Register</p>
     </div>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import {toLogup} from '../service/getData'
 export default {
   data() {
     return {
@@ -33,9 +34,22 @@ export default {
     };
   },
   methods: {
-    login() {
-      console.log(this.email, this.password1,this.password2
-      );
+    register() {
+      console.log(this.email, this.password1,this.password2);
+      toLogup(this.email,'x',this.password1,this.password2).then((result)=>{
+        console.log(result)
+        let flag = this.$store.state.flag
+        this.$store.commit('upStatus',{status:result.status,message:result.message,flag:!flag})
+        if(result.message === '注册成功') {
+          sessionStorage.setItem('loginStatus',true)
+          this.$store.commit('loginStatus',{login:true})
+          this.$router.push('/home')
+        }else {
+          sessionStorage.setItem('loginStatus',false)
+          this.$store.commit('loginStatus',{login:false})
+        }
+      })
+      
     }
   }
 };
@@ -43,6 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .login {
+  position: relative;
   min-height: 650px;
   .login_main {
     width: 350px;

@@ -2,7 +2,7 @@
   <div class="todo">
     <input type="text" name id placeholder="今天的任务" v-model="inputtext" @keydown.enter="add()" />
     <transition-group name="list-complete" tag="div">
-      <item v-for="(value, index) in content" :key="index" :object="value" @delete="remove" class="list-complete-item"></item>
+      <item v-for="(value, index) in content" :key="index" :object="value" @delete="remove(value)" class="list-complete-item"></item>
     </transition-group>
   </div>
 </template>
@@ -36,6 +36,7 @@ export default {
       // console.log(this.content.indexOf(val))
       this.content.splice(this.content.indexOf(val), 1);
       localStorage.setItem("mydata", JSON.stringify(this.content));
+    
     }
   }
 };

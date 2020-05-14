@@ -33,6 +33,7 @@ nav {
     li {
       font-size: 12px;
       font-weight: 700;
+      cursor: pointer;
     }
   }
   @media screen and (max-width: 480px) {

@@ -26,6 +26,8 @@ export default {
       toLogout().then((result)=>{
         let flag = this.$store.state.flag
         this.$store.commit('upStatus',{status:result.status,message:result.message,flag:!flag})
+        sessionStorage.setItem('loginStatus',false)
+        this.$store.commit('loginStatus',{login:false})
       })
     }
   },

@@ -21,7 +21,7 @@ const store = new Vuex.Store({
       state.message = payload.message
       state.flag = payload.flag
     },
-    logined(state, payload) {
+    loginStatus(state, payload) {
       state.login = payload.login
     }
   }

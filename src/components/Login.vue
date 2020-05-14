@@ -28,7 +28,6 @@ export default {
     return {
       email:'',
       password:'',
-      flag:false
     }
   },
   methods: {
@@ -42,12 +41,17 @@ export default {
       // })
       result.then((value) => {
         console.log(value)
-        this.$store.commit('upStatus',{status:value.status,message:value.message,flag:!this.flag})
-        this.flag = !this.flag
-        if(value.message === '登录成功') {
-          this.$store.commit('logined',{login:true})
+        let flag = this.$store.state.flag
+        this.$store.commit('upStatus',{status:value.status,message:value.message,flag:!flag})
+        if(value.message === '登录成功'||value.message === '已登录') {
+          sessionStorage.setItem('loginStatus',true)
+          localStorage.setItem('userId',value.user._id)
+          this.$store.commit('loginStatus',{login:true})
+          this.$router.push('/home')
+          console.log(value)
         }else {
-          this.$store.commit('logined',{login:true})
+          sessionStorage.setItem('loginStatus',false)
+          this.$store.commit('loginStatus',{login:false})
         }
       })
       
@@ -59,6 +63,7 @@ export default {
 
 <style lang="scss" scoped>
 .login {
+  position: relative;
   min-height: 650px;
   .login_main {
     width: 350px;

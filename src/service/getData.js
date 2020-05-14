@@ -8,14 +8,14 @@ import fetch from '../config/fetch'
  *
  * @return  {[type]}            [return Promise]
  */
-export const toLogin = (name,password)=> fetch('/signin',{name,password},'POST')
+export const toLogin = (name, password) => fetch('/signin', { name, password }, 'POST')
 
 /**
  * 用户登出
  *
  * @return  {[type]}            [return Promise]
  */
-export const toLogout = ()=> fetch('/signout')
+export const toLogout = () => fetch('/signout')
 
 
 /**
@@ -28,9 +28,10 @@ export const toLogout = ()=> fetch('/signout')
  *
  * @return  {[type]}              [return Promise]
  */
-export const toLogup = (name, gender, password, repassword)=> fetch('/signup',{name, gender, password, repassword},'POST')
+export const toLogup = (name, gender, password, repassword) => fetch('/signup', { name, gender, password, repassword }, 'POST')
 
-
+export const getPosts = () => fetch('/posts')
+export const getUserPosts = (userId) => fetch('/posts?author='+userId)
 /**
  * 创建一篇文章
  *
@@ -39,7 +40,7 @@ export const toLogup = (name, gender, password, repassword)=> fetch('/signup',{n
  *
  * @return  {[type]}                 [return Promise]
  */
-export const createPost = (title, content) => fetch('/posts/create',{title, content},'POST')
+export const createPost = (title, content) => fetch('/posts/create', { title, content }, 'POST')
 
 /**
  * 获取一篇文章
@@ -48,7 +49,7 @@ export const createPost = (title, content) => fetch('/posts/create',{title, cont
  *
  * @return  {[type]}                  [return Promise]
  */
-export const getPostById = (postId) => fetch('/posts/'+postId)
+export const getPostById = (postId) => fetch('/posts/' + postId)
 
 
 /**
@@ -58,7 +59,7 @@ export const getPostById = (postId) => fetch('/posts/'+postId)
  *
  * @return  {[type]}           [return Promise]
  */
-export const getPostContentById = (postId) => fetch('/posts/'+postId+'/edit')
+export const getPostContentById = (postId) => fetch('/posts/' + postId + '/edit')
 
 
 /**
@@ -70,7 +71,7 @@ export const getPostContentById = (postId) => fetch('/posts/'+postId+'/edit')
  *
  * @return  {[Object]}           [return Promise]
  */
-export const upPostById = (postId,title,content) => fetch('/posts/'+postId+'/edit',{title,content},'POST')
+export const upPostById = (postId, title, content) => fetch('/posts/' + postId + '/edit', { title, content }, 'POST')
 
 /**
  * 删除一篇文章
@@ -79,7 +80,7 @@ export const upPostById = (postId,title,content) => fetch('/posts/'+postId+'/edi
  *
  * @return  {[type]}           [return description]
  */
-export const deletePostById = (postId) => fetch('/posts/'+postId+'/remove')
+export const deletePostById = (postId) => fetch('/posts/' + postId + '/remove')
 
 
 /**
@@ -90,7 +91,7 @@ export const deletePostById = (postId) => fetch('/posts/'+postId+'/remove')
  *
  * @return  {[type]}             [return description]
  */
-export const createComment = (postId,content) => fetch('/comments',{postId, content},'POST')
+export const createComment = (postId, content) => fetch('/comments', { postId, content }, 'POST')
 
 
 /**
@@ -100,4 +101,4 @@ export const createComment = (postId,content) => fetch('/comments',{postId, cont
  *
  * @return  {[type]}              [return description]
  */
-export const deleteCommentById = (commentId) => fetch('/comments/'+commentId+'/remove')
+export const deleteCommentById = (commentId) => fetch('/comments/' + commentId + '/remove')

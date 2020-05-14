@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="myPost">
     <div class="content">
       <div>
         <Item
@@ -19,13 +19,25 @@
 </template>
 
 <script>
-import Item from "./postItem";
-import Date from "../Common/Date";
-import Todo from "../Common/Todo";
-import { getPosts } from "../../service/getData";
+import Item from "./Home/postItem";
+import Date from "./Common/Date";
+import Todo from "./Common/Todo";
+import { getUserPosts } from "../service/getData";
 export default {
   mounted() {
-    this.getallPost();
+    let flag;
+    if (!this.$store.state.login) {
+      flag = this.$store.state.flag;
+      this.$store.commit("upStatus", {
+        status: 404,
+        message: "您还没有登录",
+        flag: !flag
+      });
+      this.$router.push('/home')
+    } else {
+      this.getallPost();
+    }
+    
   },
   data() {
     return {
@@ -39,7 +51,7 @@ export default {
   },
   methods: {
     getallPost() {
-      getPosts().then(result => {
+      getUserPosts(localStorage.getItem('userId')).then(result => {
         this.posts = result.posts;
         //console.log(result)
       });
@@ -49,9 +61,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home {
+.myPost {
   max-width: 1024px;
-  margin: 0 auto; 
+  margin: 0 auto;
   box-sizing: border-box;
   padding-right: 274px;
   position: relative;
@@ -71,24 +83,9 @@ export default {
   }
 }
 @media screen and (max-width: 480px) {
-  .home {
+  .myPost {
     width: 100%;
     padding: 0;
-    // .content > ul {
-    //   padding: 0 10px;
-    //   li {
-    //     padding-left: 10px;
-    //     .info {
-    //       width: 100%;
-    //       ul {
-    //         width: 100%;
-    //       }
-    //     }
-    //     .image {
-    //       display: none;
-    //     }
-    //   }
-    // }
     .date {
       display: none;
     }
