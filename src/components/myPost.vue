@@ -12,6 +12,7 @@
           :postid="post._id"
         ></Item>
       </div>
+      <div class="tocreate" v-if="createPost" @click="toCreatePost">你还没有创建文章，点击创建</div>
     </div>
     <Date class="date"></Date>
     <Todo class="todo"></Todo>
@@ -41,7 +42,8 @@ export default {
   },
   data() {
     return {
-      posts: null
+      posts: null,
+      createPost: false
     };
   },
   components: {
@@ -53,8 +55,16 @@ export default {
     getallPost() {
       getUserPosts(localStorage.getItem('userId')).then(result => {
         this.posts = result.posts;
+        if(result.posts.length === 0){
+          this.createPost = true
+        }else {
+          this.createPost = false
+        }
         //console.log(result)
       });
+    },
+    toCreatePost() {
+      this.$router.push("/post/create");
     }
   }
 };
@@ -70,6 +80,21 @@ export default {
   .content {
     width: 100%;
     height: 100%;
+    position: relative;
+    .tocreate {
+      position: absolute;
+      width: 250px;
+      height: 50px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      top: 100px;
+      background-color: white;
+      text-align: center;
+      line-height: 50px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   }
   .date {
     position: absolute;

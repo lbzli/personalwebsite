@@ -1,23 +1,32 @@
 <template>
   <div class="item">
-    <input type="checkbox" />
+    <input type="checkbox" v-model="status" :class="{del:status}" />
     <span @click="remove">×</span>
-    <label>{{object}}</label>
+    <label :class="{del_label:status}">{{object.target}}</label>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      status: this.object.status
+    };
   },
   props: ["object"],
   methods: {
-      remove() {
-          this.$emit('delete',this.object)
-      }
+    remove() {
+      console.log(this.object);
+      this.$emit("delete", this.object);
+    }
   },
-
+  watch: {
+    status(newVal) {
+      console.log(newVal);
+      this.object.status = newVal;
+      this.$emit("upstatus", this.object);
+    }
+  }
 };
 </script>
 
@@ -28,23 +37,23 @@ export default {
   background-color: white;
   line-height: 35px;
   font-size: 14px;
-  color: #4D4D4D;
+  color: #4d4d4d;
   text-indent: 3em;
   position: relative;
   border-radius: 5px;
   &:hover {
-      span {
-          display: block;
-      }
+    span {
+      display: block;
+    }
   }
   label {
-      width: 75%;
-      text-align: left;
-      display: inline-block;
-      text-indent: 0em;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    width: 75%;
+    text-align: left;
+    display: inline-block;
+    text-indent: 0em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   > input {
     position: absolute;
@@ -55,24 +64,24 @@ export default {
     bottom: 0;
     margin: auto 0;
   }
-  >span {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      top: 0;
-      bottom: 0;
-      right: 4px;
-      margin: auto 0;
-      text-align: center;
-      text-indent: 0em;
-      line-height: 20px;
-      font-size: 20px;
-      color: #cccccc;
-      cursor: pointer;
-      display: none;
-      &:hover {
-          color: #4D4D4D;
-      }
+  > span {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    bottom: 0;
+    right: 4px;
+    margin: auto 0;
+    text-align: center;
+    text-indent: 0em;
+    line-height: 20px;
+    font-size: 20px;
+    color: #cccccc;
+    cursor: pointer;
+    display: none;
+    &:hover {
+      color: #4d4d4d;
+    }
   }
   > input::after {
     content: "";
@@ -88,14 +97,23 @@ export default {
     border: 1px solid #cccccc;
     border-radius: 50%;
   }
-  > input:checked {
+  // > input:checked {
+  //   &::after {
+  //     content: "✓";
+  //   }
+  //   ~label {
+  //       color:#D9D9D9;
+  //       text-decoration: line-through;
+  //   }
+  // }
+  .del {
     &::after {
       content: "✓";
     }
-    ~label {
-        color:#D9D9D9;
-        text-decoration: line-through;
-    }
+  }
+  .del_label {
+    color: #d9d9d9;
+    text-decoration: line-through;
   }
 }
 </style>
