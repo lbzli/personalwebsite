@@ -24,21 +24,26 @@ import Item from "./Home/postItem";
 import Date from "./Common/Date";
 import Todo from "./Common/Todo";
 import { getUserPosts } from "../service/getData";
+import Notice from "./Common/Notice";
 export default {
   mounted() {
-    let flag;
+    // let flag;
     if (!this.$store.state.login) {
-      flag = this.$store.state.flag;
-      this.$store.commit("upStatus", {
-        status: 404,
+      // flag = this.$store.state.flag;
+      // this.$store.commit("upStatus", {
+      //   status: 404,
+      //   message: "您还没有登录",
+      //   flag: !flag
+      // });
+      const notice = this.$create(Notice, {
         message: "您还没有登录",
-        flag: !flag
+        duration: 2000
       });
-      this.$router.push('/home')
+      notice.show();
+      this.$router.push("/home");
     } else {
       this.getallPost();
     }
-    
   },
   data() {
     return {
@@ -53,12 +58,21 @@ export default {
   },
   methods: {
     getallPost() {
-      getUserPosts(localStorage.getItem('userId')).then(result => {
+      getUserPosts(localStorage.getItem("userId")).then(result => {
         this.posts = result.posts;
-        if(result.posts.length === 0){
-          this.createPost = true
-        }else {
-          this.createPost = false
+        if (result.posts && result.posts.length === 0) {
+          this.createPost = true;
+        } else {
+          this.createPost = false;
+        }
+        if (result.status === 401) {
+          const noticeErr = this.$create(Notice, {
+            message: result.message,
+            duration: 2000
+          });
+          noticeErr.show();
+          this.$store.commit("loginStatus", { login: false });
+          this.$router.push("/home");
         }
         //console.log(result)
       });

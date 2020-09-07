@@ -1,13 +1,14 @@
 <template>
-  <div class="create">
+  <div class="create" id="box">
     <input type="text" v-model="title" placeholder="请输入文章标题" />
-    <textarea cols="30" rows="10" v-model="content" placeholder="请输入文章内容"></textarea>
+    <textarea cols="30" rows="15" v-model="content" placeholder="请输入文章内容(您可以使用markdown语法)"></textarea>
     <button @click.prevent="submit">提交</button>
   </div>
 </template>
 
 <script>
 import { createPost } from "../../service/getData";
+import Notice from "../Common/Notice";
 export default {
   mounted() {
     
@@ -22,12 +23,18 @@ export default {
     submit() {
       createPost(this.title, this.content)
         .then((result)=>{
-          let flag = this.$store.state.flag;
-          this.$store.commit("upStatus", {
-            status: result.status,
+          const notice = this.$create(Notice,{
             message: result.message,
-            flag: !flag
-          });
+            duration: 2000
+          })
+          notice.show()
+
+          // let flag = this.$store.state.flag;
+          // this.$store.commit("upStatus", {
+          //   status: result.status,
+          //   message: result.message,
+          //   flag: !flag
+          // });
           this.$router.push('/home')
         })
     }
@@ -36,11 +43,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.create {
-  width: 1024px;
-  min-height: 400px;
-  background-color: aqua;
-  margin: 0 auto;
+#box {
+  width: 600px;
+  min-height: 500px;
+  background-color: white;
   box-sizing: border-box;
   padding-top: 50px;
   input {
@@ -50,24 +56,29 @@ export default {
     background-color: #ffffff;
     margin: 0 auto;
     margin-bottom: 30px;
+    outline: none;
   }
   textarea {
     display: block;
     width: 80%;
-    height: 200px;
+    height: 300px;
     background-color: #ffffff;
     margin: 0 auto;
     margin-bottom: 30px;
+    outline: none;
   }
   button {
     display: block;
-    width: 10%;
+    width: 30%;
     min-width: 100px;
+    height: 30px;
     margin: 0 auto;
+    border-radius: 5px;
+    cursor: pointer;
   }
 }
 @media screen and (max-width: 480px) {
-  .edit {
+  #box {
     width: 100%;
   }
 }

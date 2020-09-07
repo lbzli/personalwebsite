@@ -1,8 +1,8 @@
 <template>
   <div class="user-main">
     <div class="user_login" :class="{hidden:hidden2}">
-      <router-link to="/login" tag="li">登录</router-link>
-      <router-link to="/register" tag="li">注册</router-link>
+      <router-link to="/login" tag="span">登录</router-link>
+      <router-link to="/register" tag="span">注册</router-link>
     </div>
     <div class="user_info" :class="{hidden:!hidden2}">
       <li>用户</li>
@@ -14,19 +14,26 @@
 
 <script>
 import {toLogout} from '../../service/getData'
+import Notice from '../Common/Notice'
 export default {
   computed: {
     hidden2: function() {
-      console.log(this.$store.state.message)
       return this.$store.state.login
     }
   },
   methods: {
     lognout() {
-      toLogout().then((result)=>{
-        let flag = this.$store.state.flag
-        this.$store.commit('upStatus',{status:result.status,message:result.message,flag:!flag})
+      toLogout().then(()=>{
+        // let flag = this.$store.state.flag
+        // this.$store.commit('upStatus',{status:result.status,message:result.message,flag:!flag})
+        const notice = this.$create(Notice,{
+          message: "登出成功",
+          duration: 2000
+        })
+        notice.show()
+
         sessionStorage.setItem('loginStatus',false)
+        localStorage.removeItem('token')
         this.$store.commit('loginStatus',{login:false})
       })
     }
@@ -40,7 +47,7 @@ export default {
   .user_login {
     display: flex;
     justify-content: space-around;
-    li {
+    span {
       font-size: 12px;
       cursor: pointer;
     }
@@ -48,7 +55,7 @@ export default {
   .user_info {
     display: flex;
     justify-content: space-around;
-    li {
+    span {
       font-size: 12px;
       cursor: pointer;
     }

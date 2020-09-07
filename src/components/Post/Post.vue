@@ -6,7 +6,7 @@
       <span @click="toedit()">编辑</span>
       <span @click="tocreate()">发帖</span>
       <span @click="todelete()">删除</span>
-      <span @click="tocomment()">发表评论</span>
+      <!-- <span @click="tocomment()">发表评论</span> -->
     </div>
     <div v-for="(comment, index) in comments" :key="index">
       <div class="comment_item">
@@ -37,6 +37,7 @@ import {
 } from "../../service/getData";
 import Date from "../Common/Date";
 import Todo from "../Common/Todo";
+import Notice from "../Common/Notice";
 export default {
   mounted() {
     this.warrDom = document.querySelector(".warring");
@@ -62,27 +63,23 @@ export default {
       });
     },
     toedit() {
-      let flag;
       if (!this.$store.state.login) {
-        flag = this.$store.state.flag;
-        this.$store.commit("upStatus", {
-          status: 404,
-          message: "您还没有登录",
-          flag: !flag
+        let notice = this.$create(Notice, {
+          message: "您还未登录，无法编辑",
+          duration: 2000
         });
+        notice.show();
       } else {
         this.$router.push("/post/" + this.$route.params.id + "/edit");
       }
     },
     tocreate() {
-      let flag;
       if (!this.$store.state.login) {
-        flag = this.$store.state.flag;
-        this.$store.commit("upStatus", {
-          status: 404,
-          message: "您还没有登录",
-          flag: !flag
+        let notice = this.$create(Notice, {
+          message: "您还未登录，无法新建文章",
+          duration: 2000
         });
+        notice.show();
       } else {
         this.$router.push("/post/create");
       }
@@ -94,23 +91,20 @@ export default {
       this.commentDom.style.display = "block";
     },
     comment() {
-      let flag;
       if (!this.$store.state.login) {
-        flag = this.$store.state.flag;
-        this.$store.commit("upStatus", {
-          status: 404,
-          message: "您还没有登录",
-          flag: !flag
+        let notice = this.$create(Notice, {
+          message: "您还未登录，无法删除文章",
+          duration: 2000
         });
+        notice.show();
       } else {
         createComment(this.$route.params.id, this.commentContent).then(
           result => {
-            flag = this.$store.state.flag;
-            this.$store.commit("upStatus", {
-              status: result.status,
+            let notice = this.$create(Notice, {
               message: result.message,
-              flag: !flag
-            })
+              duration: 2000
+            });
+            notice.show();
             //console.log(result)
             this.getData();
           }
@@ -120,23 +114,21 @@ export default {
       this.commentDom.style.display = "none";
     },
     delete_y() {
-      let flag;
+      
       if (!this.$store.state.login) {
-        flag = this.$store.state.flag;
-        this.$store.commit("upStatus", {
-          status: 404,
-          message: "您还没有登录",
-          flag: !flag
-        });
+        let notice = this.$create(Notice, {
+          message: '您还未登录，无法删除',
+          duration: 2000
+        })
+        notice.show()
       } else {
         deletePostById(this.$route.params.id).then(result => {
-          flag = this.$store.state.flag;
-          this.$store.commit("upStatus", {
-            status: result.status,
-            message: result.message,
-            flag: !flag
-          });
-          this.$router.push('/home')
+          let notice = this.$create(Notice, {
+          message: result.message,
+          duration: 2000
+        })
+        notice.show()
+          this.$router.push("/home");
           // console.log(result);
         });
       }

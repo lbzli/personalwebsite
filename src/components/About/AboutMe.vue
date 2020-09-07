@@ -42,8 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 .header_contain {
-  width: 100%;
-  position: relative;
+  height: 600px;
   .mark {
     width: 250px;
     height: 6px;
@@ -51,7 +50,7 @@ export default {
     left: 0;
     right: 0;
     margin: 0 auto;
-    bottom: 150px;
+    bottom: 45px;
     ul {
       display: flex;
       justify-content: space-between;

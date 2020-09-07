@@ -13,7 +13,23 @@
     <div :class="{messageBox:true}">
       {{this.$store.state.message}}
       <!-- {{this.$store.state.status}}
-      {{boxHidden}} -->
+      {{boxHidden}}-->
+    </div>
+    <div class="web_info">
+      <a href="http://www.beian.miit.gov.cn/" target="blank" class="beianhao">桂ICP备20004272号-1</a>
+      <div style="width:300px; ">
+        <a
+          target="_blank"
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=45098102000411"
+          style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"
+        >
+          
+          <img src="./image/beiantubiao.png" style="float:left;" />
+          <p
+            style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;"
+          >桂公网安备 45098102000411号</p>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -27,7 +43,9 @@ import Header from "./components/Common/Header";
 export default {
   name: "App",
   mounted() {
-    this.$store.commit('loginStatus',{login:sessionStorage.getItem('loginStatus')==='true'?true:false})
+    this.$store.commit("loginStatus", {
+      login: sessionStorage.getItem("loginStatus") === "true" ? true : false
+    });
   },
   computed: {
     boxHidden: function() {
@@ -79,8 +97,8 @@ body {
   position: relative;
   .child_view {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    // width: 100%;
+    // height: 100%;
     top: 0;
     left: 0;
     right: 0;
@@ -102,6 +120,35 @@ body {
     margin: 0 auto;
     opacity: 0;
     transition: opacity 1s ease;
+  }
+  .web_info {
+    width: 100%;
+    height: 50px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+    .beianhao {
+      position: relative;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 1024px;
+      height: 25px;
+      line-height: 25px;
+      margin: auto auto;
+      color: #939393;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .web_info {
+      .beianhao {
+        width: 100%;
+      }
+    }
   }
 }
 </style>

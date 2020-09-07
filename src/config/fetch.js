@@ -1,5 +1,5 @@
-//let baseUrl = 'http://47.103.198.87:3000'       //生产环境
-let baseUrl = 'http://localhost:3000'
+let baseUrl = 'http://47.103.198.87:3000'       //生产环境
+//let baseUrl = 'http://localhost:3000'//http://localhost:4000
 export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
   type = type.toUpperCase()
   url = baseUrl + url
@@ -17,21 +17,28 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
   }
 
   if (window.fetch && method == 'fetch') {
+    
+
     let requestConfig = {
       credentials: 'include',
       method: type,
       headers: {
         'Accept': 'application/json', //Accept 请求头用来告知（服务器）客户端可以处理的内容类型，
-        'Content-Type': 'application/json'//在响应中，Content-Type标头告诉客户端实际返回的内容的内容类型。
+        'Content-Type': 'application/json',//在响应中，Content-Type标头告诉客户端实际返回的内容的内容类型。
       },
       mode: "cors",
-      // cache: 'force-cache'cache //作为Request 接口只读属性包含着请求的缓存模式。它控制着请求以何种方式与浏览器的  HTTP 缓存进行交互。
+      // cache: 'force-cache'cache //作为Request 接口只读属性包含着请求的缓存模式。它控制着请求以何种方式与浏览器的  HTTP 缓存进行交互
     }
 
     if (type == 'POST') {
+      
       Object.defineProperty(requestConfig, 'body', {
         value: JSON.stringify(data)
       })
+    }
+    let token = window.localStorage.getItem('token')
+    if (token) {
+      requestConfig.headers.Authorization = 'Bearer ' + token
     }
 
     try {

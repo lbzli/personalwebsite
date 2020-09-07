@@ -31,7 +31,7 @@ export const toLogout = () => fetch('/signout')
 export const toLogup = (name, gender, password, repassword) => fetch('/signup', { name, gender, password, repassword }, 'POST')
 
 export const getPosts = () => fetch('/posts')
-export const getUserPosts = (userId) => fetch('/posts?author='+userId)
+export const getUserPosts = (userId) => fetch('/posts/userPosts?author='+userId)
 /**
  * 创建一篇文章
  *
