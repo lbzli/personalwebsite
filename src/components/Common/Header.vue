@@ -4,16 +4,17 @@
       <router-link to="/home" tag="li">首页</router-link>
       <router-link to="/about" tag="li">关于我</router-link>
       <router-link to="/article" tag="li">文章</router-link>
-      <User></User>
+
+      <newUser :user="this.$store.state.user"></newUser>
     </ul>
   </nav>
 </template>
 
 <script>
-import User from './User'
+import newUser from "./newUser";
 export default {
   components: {
-    User
+    newUser
   }
 };
 </script>

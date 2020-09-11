@@ -17,6 +17,7 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import { getPostById, toLogin } from "../service/getData";
+import {baseUrl} from '../config/constant'
 import myForm from "./From/Form";
 import FormItem from "./From/FormItem";
 import myInput from "./From/Input";
@@ -50,22 +51,31 @@ export default {
         notice.show()
        
         if (value.message === "登录成功" || value.message === "已登录") {
-          sessionStorage.setItem("loginStatus", true);
+          console.log(value.user)
+          localStorage.setItem("loginStatus", true);
           localStorage.setItem("userId", value.user._id);
           localStorage.setItem("token",value.token)
           this.$store.commit("loginStatus", { login: true });
+
+          this.$store.commit('getUserInfo', { userName: value.user.name, id:value.user._id, icon: baseUrl + value.user.avatar, menu: value.user.menu})
+          localStorage.setItem('user',JSON.stringify(this.$store.state.user))
+
           this.$router.push("/home");
         
         } else {
-          sessionStorage.setItem("loginStatus", false);
+          localStorage.setItem("loginStatus", false);
           this.$store.commit("loginStatus", { login: false });
+
+          this.$store.commit('clearUserInfo', { })
+          localStorage.removeItem('user')
         }
       });
 
     },
     getIcon() {
       console.log('这里开始获取用户的头像')
-      this.userIcon = "hahahhaha"
+      this.userIcon = this.username
+     
     }
   }
 };

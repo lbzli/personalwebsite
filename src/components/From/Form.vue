@@ -1,19 +1,29 @@
 <template>
   <div id="box">
     <div class="user_icon">
-      <!-- <img src="https://dss2.bdstatic.com/6Ot1bjeh1BF3odCf/it/u=2270510574,2326044837&fm=85&app=92&f=JPEG?w=121&h=75&s=9EC72BDA1AC824495C3BFE06030060F5" alt=""> -->
-      {{userIcon}}
+      <div class="icon">
+         <img ref="iconimg" alt="">
+      </div>
     </div>
     <slot></slot>
   </div>
 </template>
 
 <script>
+import {baseUrl}  from '../../config/constant.js'
 export default {
   data() {
-    return {};
+    return {
+      // eslint-disable-next-line no-undef
+      icon: baseUrl
+    };
   },
-  props: ["userIcon"]
+  props: ["userIcon"],
+  watch:{
+    userIcon:function (newval) {
+      this.$refs.iconimg.src = baseUrl+'login/'+newval
+    }
+  }
 };
 </script>
 
@@ -26,16 +36,26 @@ export default {
   border-top: 0.1px solid white;
   border-bottom: 0.1px solid white;
   .user_icon {
-    width: 50px;
-    height: 50px;
-    background-color: pink;
+    display: flex;
+    width: 70px;
+    height: 70px;
+    background-color: white;
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto;
     margin-bottom: 25px;
-    margin-top: 20px;
+    margin-top: -30px;
+    justify-content: center;
+    align-items: center;
     img {
-      width: 100%;
+      height: 100%;
+    }
+    .icon {
+      width: 50px;
+      height: 50px;
+      background-color: white;
+      border-radius: 50%;
+      overflow: hidden;
     }
   }
 }

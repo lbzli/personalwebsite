@@ -13,31 +13,34 @@
 
 
 <script>
-import {toLogout} from '../../service/getData'
-import Notice from '../Common/Notice'
+import { toLogout } from "../../service/getData";
+import Notice from "../Common/Notice";
 export default {
   computed: {
     hidden2: function() {
-      return this.$store.state.login
+      return this.$store.state.login;
     }
   },
   methods: {
     lognout() {
-      toLogout().then(()=>{
+      toLogout().then(() => {
         // let flag = this.$store.state.flag
         // this.$store.commit('upStatus',{status:result.status,message:result.message,flag:!flag})
-        const notice = this.$create(Notice,{
+        const notice = this.$create(Notice, {
           message: "登出成功",
           duration: 2000
-        })
-        notice.show()
+        });
+        notice.show();
 
-        sessionStorage.setItem('loginStatus',false)
-        localStorage.removeItem('token')
-        this.$store.commit('loginStatus',{login:false})
-      })
+        localStorage.setItem("loginStatus", false);
+        localStorage.removeItem("token");
+        this.$store.commit("loginStatus", { login: false });
+
+        this.$store.commit("clearUserInfo", {});
+        localStorage.removeItem("user");
+      });
     }
-  },
+  }
 };
 </script>
 

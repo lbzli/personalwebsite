@@ -7,6 +7,7 @@ import Post from '../components/Post/Post'
 import editPost from '../components/Post/editPost'
 import createPost from '../components/Post/createPost'
 import article from '../components/myPost'
+import uploadicon from '../components/Common/uploadicon'
 
 const routes = [
   { path: '/', component: Home },
@@ -17,7 +18,8 @@ const routes = [
   { path: '/post/create', component: createPost },
   { path: '/post/:id', component: Post},
   { path: '/post/:id/edit', component: editPost},
-  { path: '/article', component: article}
+  { path: '/article', component: article},
+  { path: '/uploadicon', component: uploadicon}
 ]
 
 const router = new VueRouter({ routes })

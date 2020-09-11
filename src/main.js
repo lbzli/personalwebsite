@@ -14,7 +14,8 @@ const store = new Vuex.Store({
     status:200,
     message: '',
     flag: false,
-    login:false
+    login:false,
+    user: null
   },
   mutations: {
     upStatus(state, payload) {
@@ -24,6 +25,20 @@ const store = new Vuex.Store({
     },
     loginStatus(state, payload) {
       state.login = payload.login
+    },
+    getUserInfo(state, payload) {
+      state.user = {}
+      state.user.userName = payload.userName
+      state.user.id = payload.id
+      state.user.icon = payload.icon
+      state.user.menu = payload.menu
+    },
+    // eslint-disable-next-line no-unused-vars
+    clearUserInfo(state, payload) {
+      state.user = null
+    },
+    upusericon(state, payload){
+      state.user.icon = payload.icon
     }
   }
 })

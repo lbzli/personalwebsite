@@ -1,11 +1,5 @@
 <template>
-  <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-
-    <!-- <login></login> -->
-    <!-- <home></home>
-    <home2></home2>-->
+  <div id="app2">
     <Header class="nav"></Header>
     <transition name="fade">
       <router-view class="child_view"></router-view>
@@ -41,11 +35,17 @@
 
 import Header from "./components/Common/Header";
 export default {
-  name: "App",
+  name: "App2",
   mounted() {
     this.$store.commit("loginStatus", {
-      login: sessionStorage.getItem("loginStatus") === "true" ? true : false
+      login: localStorage.getItem("loginStatus") === "true" ? true : false
     });
+    // this.$store.commit('getUserInfo', JSON.parse(localStorage.getItem('user')))
+    
+    let user = JSON.parse(localStorage.getItem('user'))
+    if(user) {
+      this.$store.commit('getUserInfo', user)
+    }
   },
   computed: {
     boxHidden: function() {
@@ -92,9 +92,13 @@ body {
   background-size: cover;
   height: 100%;
 }
-#app {
+#app2 {
   height: 100%;
-  position: relative;
+  position: relative; 
+  .nav {
+    position: relative;
+    z-index: 9999;
+  }
   .child_view {
     position: absolute;
     // width: 100%;

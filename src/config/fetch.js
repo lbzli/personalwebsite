@@ -1,5 +1,5 @@
-let baseUrl = 'http://47.103.198.87:3000'       //生产环境
-//let baseUrl = 'http://localhost:3000'//http://localhost:4000
+// let baseUrl = 'http://47.103.198.87:3000'       //生产环境
+let baseUrl = 'http://localhost:3000'//http://localhost:4000
 export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
   type = type.toUpperCase()
   url = baseUrl + url
